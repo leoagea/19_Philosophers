@@ -3,27 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   utils_2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lagea <lagea@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 17:59:51 by lagea             #+#    #+#             */
-/*   Updated: 2024/08/07 18:02:39 by lagea            ###   ########.fr       */
+/*   Updated: 2024/08/08 00:49:17 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
-void exit(t_data *data)
+void ft_exit(t_data *data)
 {
     int i;
 
     i = 0;
-    while (data->philos[i])
+    while (i < data->nb_philo)
     {
         pthread_mutex_destroy(&data->philos[i].eat);
-        pthread_mutex_destroy(&data->philos[i].sleep);
-        pthread_mutex_destroy(&data->philos[i].think);
-        pthread_mutex_destroy(&data->philos[i].dead);
-        free(data->philos[i]);
+        if (&data->fork[i])
+			pthread_mutex_destroy(&data->fork[i]);
         i++;
     }
+    if (data->fork)
+		free(data->fork);
+	if (data->philos)
+		free(data->philos);
 }
