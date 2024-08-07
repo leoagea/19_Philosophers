@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lagea <lagea@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 13:25:35 by lagea             #+#    #+#             */
-/*   Updated: 2024/08/07 18:07:37 by lagea            ###   ########.fr       */
+/*   Updated: 2024/08/08 00:56:22 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,18 @@
 # include <sys/time.h> //struct timeval
 # include <unistd.h>   //sleep
 # include <stdlib.h>
+# include <stdatomic.h>
 
 typedef struct s_philo
 {
 	int				id;
 	int				meals_eaten;
 	int             dead; // 0 if no dead philo, 1 if 1 one philo just died
+	atomic_long		last_eat;
 	pthread_mutex_t	eat;
-	pthread_mutex_t	sleep;
-	pthread_mutex_t	think;
 	pthread_mutex_t	print;
+	pthread_mutex_t	*l_fork;
+	pthread_mutex_t	*r_fork;
 	size_t			start_time;
 	pthread_t		thread;
 }					t_philo;
@@ -40,7 +42,9 @@ typedef struct s_data
 	int				t_to_eat;
 	int				t_to_sleep;
 	int				nb_must_eat;
+	int				all_eaten;
 	pthread_mutex_t	dead;
+	pthread_mutex_t	*fork;
 	t_philo			*philos;
 }					t_data;
 
@@ -52,6 +56,7 @@ size_t              get_current_time(void);
 
 int					parse_arg(t_data *data, char **av);
 int init_philo(t_data *data);
+int init_fork(t_data *data);
 
 /*--------------------------------Utils--------------------------------*/
 
@@ -59,5 +64,9 @@ int					ft_isdigit(int c);
 int					ft_atoi(const char *str);
 void                precise_usleep(long usec);
 size_t				get_current_time(void);
+
+/*-------------------------------Utils_2-------------------------------*/
+
+void ft_exit(t_data *data);
 
 #endif

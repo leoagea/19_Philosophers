@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lagea <lagea@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 13:24:51 by lagea             #+#    #+#             */
-/*   Updated: 2024/08/07 18:08:48 by lagea            ###   ########.fr       */
+/*   Updated: 2024/08/08 00:57:21 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,18 +69,32 @@ int init_philo(t_data *data)
     if (!data->philos)
         return 1;
     pthread_mutex_init(&data->dead, NULL);
-    pthread_mutex_lock(&data->dead);
-    // (*(data->dead)) = 0;
-    pthread_mutex_unlock(&data->dead);
     while (i < data->nb_philo)
     {
         data->philos[i].id = i;
         data->philos[i].meals_eaten = 0;
         pthread_mutex_init(&data->philos[i].eat, NULL);
-        pthread_mutex_init(&data->philos[i].think, NULL);
-        pthread_mutex_init(&data->philos[i].sleep, NULL);
         pthread_mutex_init(&data->philos[i].print, NULL);
+        data->philos[i].start_time = get_current_time();
         i++;
     }
+    return 0;
+}
+
+int init_fork(t_data *data)
+{
+    int i;
+
+    i = 0;
+    data->fork = malloc(sizeof(pthread_mutex_t) * data->nb_philo);
+    if (!data->fork)
+        return 1;
+    while (i < data->nb_philo)
+    {
+        data->philos[i].l_fork = &data->fork[i];
+        data->philos[i].r_fork = &data->fork[(i + 1) % data->nb_philo];
+        i++;
+    }
+    data->all_eaten = 0;
     return 0;
 }
