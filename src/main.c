@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lagea <lagea@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 13:25:24 by lagea             #+#    #+#             */
-/*   Updated: 2024/08/07 17:50:18 by lagea            ###   ########.fr       */
+/*   Updated: 2024/08/08 00:34:48 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ int main(int ac, char **av)
     if (parse_arg(&data, av))
         return (1);
     printf("nb philo : %d\ntime to die : %d\ntime to eat : %d\ntime to sleep : %d\nnb of times each philo must eat : %d\n", data.nb_philo, data.t_to_die, data.t_to_eat, data.t_to_sleep, data.nb_must_eat);
-    if (init_philo(&data))
-        printf("Error Allocation array philos\n");
+    if (init_philo(&data)  || init_fork(&data))
+        printf("Error Allocation array philos or fork\n");
+    ft_exit(&data);
     return 0;   
 }
