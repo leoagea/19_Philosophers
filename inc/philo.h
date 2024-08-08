@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lagea <lagea@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 13:25:35 by lagea             #+#    #+#             */
-/*   Updated: 2024/08/08 17:04:36 by lagea            ###   ########.fr       */
+/*   Updated: 2024/08/09 00:43:45 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct s_philo
 	pthread_mutex_t	print;
 	pthread_mutex_t	*l_fork;
 	pthread_mutex_t	*r_fork;
+	pthread_mutex_t monitoring;
 	size_t			start_time;
 	pthread_t		thread;
 	struct s_data	*data;
@@ -84,5 +85,6 @@ void ft_exit(t_data *data);
 /*-------------------------------Routine-------------------------------*/
 
 void *routine(void *p);
+void monitoring(t_data *data);
 
 #endif
