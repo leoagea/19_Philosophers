@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
+/*   By: lagea <lagea@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 13:24:51 by lagea             #+#    #+#             */
-/*   Updated: 2024/08/08 00:57:21 by lagea            ###   ########.fr       */
+/*   Updated: 2024/08/08 16:49:09 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ int init_philo(t_data *data)
         pthread_mutex_init(&data->philos[i].eat, NULL);
         pthread_mutex_init(&data->philos[i].print, NULL);
         data->philos[i].start_time = get_current_time();
+        data->philos[i].data = data;
         i++;
     }
     return 0;
