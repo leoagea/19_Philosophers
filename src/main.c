@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lagea <lagea@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 13:25:24 by lagea             #+#    #+#             */
-/*   Updated: 2024/08/08 16:46:32 by lagea            ###   ########.fr       */
+/*   Updated: 2024/08/09 00:44:07 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int main(int ac, char **av)
         if (pthread_create(&data.philos[i].thread, NULL, routine, (void *)&data.philos[i]))
             return (ft_exit(&data), 1);
     }
-    
+    monitoring(&data);
     ft_join_thread(&data);
     ft_exit(&data);
     return 0;   
