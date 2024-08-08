@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lagea <lagea@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 13:24:51 by lagea             #+#    #+#             */
-/*   Updated: 2024/08/08 16:49:09 by lagea            ###   ########.fr       */
+/*   Updated: 2024/08/09 00:44:33 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ int init_philo(t_data *data)
     data->philos = malloc(sizeof(t_philo) * data->nb_philo);
     if (!data->philos)
         return 1;
-    pthread_mutex_init(&data->dead, NULL);
     while (i < data->nb_philo)
     {
         data->philos[i].id = i;
