@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
+/*   By: lagea <lagea@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 13:25:24 by lagea             #+#    #+#             */
-/*   Updated: 2024/08/09 00:44:07 by lagea            ###   ########.fr       */
+/*   Updated: 2024/08/09 16:11:34 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int main(int ac, char **av)
     if (init_philo(&data)  || init_fork(&data))
         printf("Error Allocation array philos or fork\n");
     i = -1;
+    data.start = get_current_time();
     while (++i < data.nb_philo)
     {
         if (pthread_create(&data.philos[i].thread, NULL, routine, (void *)&data.philos[i]))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
+/*   By: lagea <lagea@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 13:25:35 by lagea             #+#    #+#             */
-/*   Updated: 2024/08/09 00:43:45 by lagea            ###   ########.fr       */
+/*   Updated: 2024/08/09 13:11:37 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ typedef struct s_data
 	int				nb_must_eat;
 	int				all_eaten;
 	int				dead;// 0 if no dead philo, 1 if 1 one philo just died
+	size_t 			start;
 	pthread_mutex_t	*fork;
 	t_philo			*philos;
 }					t_data;

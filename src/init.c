@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
+/*   By: lagea <lagea@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 13:24:51 by lagea             #+#    #+#             */
-/*   Updated: 2024/08/09 00:44:33 by lagea            ###   ########.fr       */
+/*   Updated: 2024/08/09 15:28:04 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int init_philo(t_data *data)
         return 1;
     while (i < data->nb_philo)
     {
-        data->philos[i].id = i;
+        data->philos[i].id = i + 1;
         data->philos[i].meals_eaten = 0;
         pthread_mutex_init(&data->philos[i].eat, NULL);
         pthread_mutex_init(&data->philos[i].print, NULL);
