@@ -6,7 +6,7 @@
 /*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 13:25:35 by lagea             #+#    #+#             */
-/*   Updated: 2024/08/12 00:48:21 by lagea            ###   ########.fr       */
+/*   Updated: 2024/08/12 00:54:50 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@
 #define CYAN "\033[36;01m"  //THINK
 #define RESET    "\033[0m"
 #define ERR_NB_ARG "Error: Wrong number of arguments"
+#define ERR_1 "Error: Input invalid character"
+
 struct	s_data;
 
 typedef struct s_philo
@@ -60,5 +62,9 @@ typedef struct s_data
 	pthread_mutex_t	lock;
 	pthread_mutex_t	write;
 }	t_data;
+
+/*---------------------------Utils---------------------------*/
+
+int	check_input(char **av);
 
 #endif
