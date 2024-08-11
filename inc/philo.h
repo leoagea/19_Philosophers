@@ -6,7 +6,7 @@
 /*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 13:25:35 by lagea             #+#    #+#             */
-/*   Updated: 2024/08/12 00:54:50 by lagea            ###   ########.fr       */
+/*   Updated: 2024/08/12 01:14:14 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,10 @@
 #define RESET    "\033[0m"
 #define ERR_NB_ARG "Error: Wrong number of arguments"
 #define ERR_1 "Error: Input invalid character"
+#define ERR_2 "Error: Input invalid values"
+#define ERR_ALLOC_1 "Error: Allocation pthread"
+#define ERR_ALLOC_2 "Error: Allocation mutex"
+#define ERR_ALLOC_3 "Error: Allocation struct philo"
 
 struct	s_data;
 
@@ -48,7 +52,7 @@ typedef struct s_philo
 
 typedef struct s_data
 {
-	pthread_t		*tid;
+	pthread_t		*thread;
 	int				philo_num;
 	int				meals_nb;
 	int				dead;
@@ -63,8 +67,17 @@ typedef struct s_data
 	pthread_mutex_t	write;
 }	t_data;
 
+/*----------------------------Init---------------------------*/
+
+int	init(t_data *data, char **av, int ac);
+
+/*----------------------------Atoi---------------------------*/
+
+int	ft_atoi(const char *str);
+
 /*---------------------------Utils---------------------------*/
 
+int	ft_error(char *str, t_data *data);
 int	check_input(char **av);
 
 #endif

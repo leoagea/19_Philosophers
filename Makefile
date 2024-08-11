@@ -9,7 +9,7 @@ RM = rm -rf
 SRCS_DIR = src/
 OBJS_DIR = obj/
 
-SRCS =	src/main.c src/init.c src/utils.c src/utils_2.c src/routine.c
+SRCS =	src/main.c src/init.c src/utils.c src/utils_2.c src/routine.c src/atoi.c
 
 OBJ = $(SRCS:$(SRCS_DIR)%.c=$(OBJS_DIR)%.o)
 

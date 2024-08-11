@@ -6,7 +6,7 @@
 /*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 15:10:26 by lagea             #+#    #+#             */
-/*   Updated: 2024/08/12 00:55:24 by lagea            ###   ########.fr       */
+/*   Updated: 2024/08/12 01:18:00 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	clear_data(t_data	*data)
 {
-	if (data->tid)
-		free(data->tid);
+	if (data->thread)
+		free(data->thread);
 	if (data->forks)
 		free(data->forks);
 	if (data->philos)
