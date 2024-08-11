@@ -6,7 +6,7 @@
 /*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 13:24:51 by lagea             #+#    #+#             */
-/*   Updated: 2024/08/12 01:16:29 by lagea            ###   ########.fr       */
+/*   Updated: 2024/08/12 01:31:08 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,13 @@ static int	init_malloc(t_data *data)
 {
 	data->thread = malloc(sizeof(pthread_t) * data->philo_num);
 	if (!data->thread)
-		return (error(ERR_ALLOC_1, data));
+		return (ft_error(ERR_ALLOC_1, data));
 	data->forks = malloc(sizeof(pthread_mutex_t) * data->philo_num);
 	if (!data->forks)
-		return (error(ERR_ALLOC_2, data));
+		return (ft_error(ERR_ALLOC_2, data));
 	data->philos = malloc(sizeof(t_philo) * data->philo_num);
 	if (!data->philos)
-		return (error(ERR_ALLOC_3, data));
+		return (ft_error(ERR_ALLOC_3, data));
 	return (0);
 }
 
