@@ -6,7 +6,7 @@
 /*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 13:25:24 by lagea             #+#    #+#             */
-/*   Updated: 2024/08/12 00:42:25 by lagea            ###   ########.fr       */
+/*   Updated: 2024/08/12 00:49:26 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,9 @@
 
 int main(int ac, char **av)
 {
-      
+    // t_data	data;
+    (void) av;
+    
+	if (ac < 5 || ac > 6)
+		return (printf("%s\n", ERR_NB_ARG));
 }
