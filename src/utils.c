@@ -6,13 +6,13 @@
 /*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 15:10:26 by lagea             #+#    #+#             */
-/*   Updated: 2024/08/12 01:48:49 by lagea            ###   ########.fr       */
+/*   Updated: 2024/08/12 01:57:57 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
-void	clear_data(t_data	*data)
+void	clear_data(t_data *data)
 {
 	if (data->thread)
 		free(data->thread);

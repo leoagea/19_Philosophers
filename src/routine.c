@@ -6,7 +6,7 @@
 /*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 13:01:36 by lagea             #+#    #+#             */
-/*   Updated: 2024/08/12 01:49:34 by lagea            ###   ########.fr       */
+/*   Updated: 2024/08/12 01:57:47 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	*monitor(void *data_pointer)
 {
 	t_philo	*philo;
 
-	philo = (t_philo *) data_pointer;
+	philo = (t_philo *)data_pointer;
 	pthread_mutex_lock(&philo->data->write);
 	pthread_mutex_unlock(&philo->data->write);
 	while (philo->data->dead == 0)
@@ -33,7 +33,7 @@ void	*supervisor(void *philo_pointer)
 {
 	t_philo	*philo;
 
-	philo = (t_philo *) philo_pointer;
+	philo = (t_philo *)philo_pointer;
 	while (philo->data->dead == 0)
 	{
 		pthread_mutex_lock(&philo->lock);
@@ -55,7 +55,7 @@ void	*routine(void *philo_pointer)
 {
 	t_philo	*philo;
 
-	philo = (t_philo *) philo_pointer;
+	philo = (t_philo *)philo_pointer;
 	philo->time_to_die = philo->data->death_time + get_time();
 	if (pthread_create(&philo->t1, NULL, &supervisor, (void *)philo))
 		return ((void *)1);

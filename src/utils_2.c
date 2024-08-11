@@ -6,7 +6,7 @@
 /*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 17:59:51 by lagea             #+#    #+#             */
-/*   Updated: 2024/08/12 01:49:13 by lagea            ###   ########.fr       */
+/*   Updated: 2024/08/12 01:59:29 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,10 @@ void	print(char *str, t_philo *philo)
 	time = get_time() - philo->data->start_time;
 	if (ft_strcmp(DEAD, str) == 0 && philo->data->dead == 0)
 	{
-		printf("[%llu] [%d] "RED"%s"RESET"\n", time, philo->id, str);
+		printf("[%llu] [%d] " RED "%s" RESET "\n", time, philo->id, str);
 		philo->data->dead = 1;
 	}
 	if (!philo->data->dead)
-		printf("[%llu] [%d] "BLUE"%s"RESET"\n", time, philo->id, str);
+		printf("[%llu] [%d] " BLUE "%s" RESET "\n", time, philo->id, str);
 	pthread_mutex_unlock(&philo->data->write);
 }

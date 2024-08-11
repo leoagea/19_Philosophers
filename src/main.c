@@ -6,7 +6,7 @@
 /*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 13:25:24 by lagea             #+#    #+#             */
-/*   Updated: 2024/08/12 01:48:16 by lagea            ###   ########.fr       */
+/*   Updated: 2024/08/12 01:57:16 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,21 +24,21 @@ static int	case_one(t_data *data)
 	return (0);
 }
 
-int main(int ac, char **av)
+int	main(int ac, char **av)
 {
-    t_data	data;
-    (void) av;
-    
+	t_data	data;
+
+	(void)av;
 	if (ac < 5 || ac > 6)
 		return (printf("%s\n", ERR_NB_ARG), 1);
-    if (check_input(av))
+	if (check_input(av))
 		return (1);
-    if (init(&data, av, ac))
+	if (init(&data, av, ac))
 		return (1);
-    if (data.philo_num == 1)
+	if (data.philo_num == 1)
 		return (case_one(&data));
-    if (loop_thread(&data))
+	if (loop_thread(&data))
 		return (1);
-    ft_exit(&data);
+	ft_exit(&data);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 13:24:51 by lagea             #+#    #+#             */
-/*   Updated: 2024/08/12 01:31:08 by lagea            ###   ########.fr       */
+/*   Updated: 2024/08/12 01:57:38 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,9 @@ static int	init_malloc(t_data *data)
 static int	init_data(t_data *data, char **av, int ac)
 {
 	data->philo_num = ft_atoi(av[1]);
-	data->death_time = (u_int64_t) ft_atoi(av[2]);
-	data->eat_time = (u_int64_t) ft_atoi(av[3]);
-	data->sleep_time = (u_int64_t) ft_atoi(av[4]);
+	data->death_time = (u_int64_t)ft_atoi(av[2]);
+	data->eat_time = (u_int64_t)ft_atoi(av[3]);
+	data->sleep_time = (u_int64_t)ft_atoi(av[4]);
 	if (ac == 6)
 		data->meals_nb = ft_atoi(av[5]);
 	else
