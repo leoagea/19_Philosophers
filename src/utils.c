@@ -6,7 +6,7 @@
 /*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 15:10:26 by lagea             #+#    #+#             */
-/*   Updated: 2024/08/12 01:18:00 by lagea            ###   ########.fr       */
+/*   Updated: 2024/08/12 01:48:49 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,4 +68,14 @@ int	check_input(char **av)
 		i++;
 	}
 	return (0);
+}
+
+int	ft_strcmp(char *s1, char *s2)
+{
+	while (*s1 != '\0' && (*s1 == *s2))
+	{
+		s1++;
+		s2++;
+	}
+	return (*(char *)s1 - *(char *)s2);
 }
