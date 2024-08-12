@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 13:01:36 by lagea             #+#    #+#             */
-/*   Updated: 2024/08/12 17:00:58 by lagea            ###   ########.fr       */
+/*   Updated: 2024/08/12 17:26:03 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ void	*routine(void *philo_pointer)
 	philo = (t_philo *)philo_pointer;
 	philo->time_to_die = philo->data->death_time + get_time();
 	if (pthread_create(&philo->t1, NULL, &supervisor, (void *)philo))
+		return ((void *)1);
+	if (pthread_detach(philo->t1))
 		return ((void *)1);
 	while (1)
 	{
