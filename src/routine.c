@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 13:01:36 by lagea             #+#    #+#             */
-/*   Updated: 2024/08/12 16:16:21 by lagea            ###   ########.fr       */
+/*   Updated: 2024/08/12 16:34:07 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ void	*monitor(void *data_pointer)
         	pthread_mutex_unlock(&philo->data->death_lock);
         	break;
     	}
-		pthread_mutex_lock(&philo->lock);
+		pthread_mutex_lock(&philo->data->lock);
 		if (philo->data->finished >= philo->data->philo_num)
 			philo->data->dead = 1;
-		pthread_mutex_unlock(&philo->lock);
+		pthread_mutex_unlock(&philo->data->lock);
 		pthread_mutex_unlock(&philo->data->death_lock);
 	}
 	return ((void *)0);
