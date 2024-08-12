@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
+/*   By: lagea <lagea@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 13:01:36 by lagea             #+#    #+#             */
-/*   Updated: 2024/08/12 01:57:47 by lagea            ###   ########.fr       */
+/*   Updated: 2024/08/12 16:16:21 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,19 @@ void	*monitor(void *data_pointer)
 	philo = (t_philo *)data_pointer;
 	pthread_mutex_lock(&philo->data->write);
 	pthread_mutex_unlock(&philo->data->write);
-	while (philo->data->dead == 0)
+	while (1)
 	{
+		pthread_mutex_lock(&philo->data->death_lock);
+    	if (philo->data->dead)
+    	{
+        	pthread_mutex_unlock(&philo->data->death_lock);
+        	break;
+    	}
 		pthread_mutex_lock(&philo->lock);
 		if (philo->data->finished >= philo->data->philo_num)
 			philo->data->dead = 1;
 		pthread_mutex_unlock(&philo->lock);
+		pthread_mutex_unlock(&philo->data->death_lock);
 	}
 	return ((void *)0);
 }
@@ -34,8 +41,15 @@ void	*supervisor(void *philo_pointer)
 	t_philo	*philo;
 
 	philo = (t_philo *)philo_pointer;
-	while (philo->data->dead == 0)
+	while (1)
 	{
+		pthread_mutex_lock(&philo->data->death_lock);
+    	if (philo->data->dead)
+    	{
+    	    pthread_mutex_unlock(&philo->data->death_lock);
+    	    break;
+    	}
+    	pthread_mutex_unlock(&philo->data->death_lock);
 		pthread_mutex_lock(&philo->lock);
 		if (get_time() >= philo->time_to_die && philo->eating == 0)
 			print(DEAD, philo);
@@ -59,8 +73,15 @@ void	*routine(void *philo_pointer)
 	philo->time_to_die = philo->data->death_time + get_time();
 	if (pthread_create(&philo->t1, NULL, &supervisor, (void *)philo))
 		return ((void *)1);
-	while (philo->data->dead == 0)
+	while (1)
 	{
+		pthread_mutex_lock(&philo->data->death_lock);
+    	if (philo->data->dead)
+    	{
+    	    pthread_mutex_unlock(&philo->data->death_lock);
+    	    break;
+    	}
+    	pthread_mutex_unlock(&philo->data->death_lock);
 		eat(philo);
 		print(THINKING, philo);
 	}

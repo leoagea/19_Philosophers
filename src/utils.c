@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
+/*   By: lagea <lagea@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 15:10:26 by lagea             #+#    #+#             */
-/*   Updated: 2024/08/12 01:57:57 by lagea            ###   ########.fr       */
+/*   Updated: 2024/08/12 16:12:41 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	ft_exit(t_data *data)
 	}
 	pthread_mutex_destroy(&data->write);
 	pthread_mutex_destroy(&data->lock);
+	pthread_mutex_destroy(&data->death_lock);
 	clear_data(data);
 }
 

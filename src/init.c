@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
+/*   By: lagea <lagea@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 13:24:51 by lagea             #+#    #+#             */
-/*   Updated: 2024/08/12 01:57:38 by lagea            ###   ########.fr       */
+/*   Updated: 2024/08/12 16:12:31 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ static int	init_data(t_data *data, char **av, int ac)
 	data->finished = 0;
 	pthread_mutex_init(&data->write, NULL);
 	pthread_mutex_init(&data->lock, NULL);
+	pthread_mutex_init(&data->death_lock, NULL);
 	return (0);
 }
 
