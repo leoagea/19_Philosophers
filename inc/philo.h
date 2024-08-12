@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 13:25:35 by lagea             #+#    #+#             */
-/*   Updated: 2024/08/12 16:12:14 by lagea            ###   ########.fr       */
+/*   Updated: 2024/08/12 17:00:51 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@
 # define ERR_ALLOC_2 "Error: Allocation mutex"
 # define ERR_ALLOC_3 "Error: Allocation struct philo"
 # define ERR_THREAD "Error: Thread creation"
+# define ERR_DETACH "Error: Thread detach"
 # define ERR_JOIN "Error: Thread join"
 # define ERR_GTOD "Error: gettimeofday() Failure"
 

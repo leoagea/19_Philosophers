@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 13:01:36 by lagea             #+#    #+#             */
-/*   Updated: 2024/08/12 16:34:07 by lagea            ###   ########.fr       */
+/*   Updated: 2024/08/12 17:00:58 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,8 @@ int	loop_thread(t_data *data)
 	{
 		if (pthread_create(&thread0, NULL, &monitor, &data->philos[0]))
 			return (ft_error(ERR_THREAD, data));
+		if (pthread_detach(thread0))
+			return (ft_error(ERR_DETACH, data));
 	}
 	while (++i < data->philo_num)
 	{
