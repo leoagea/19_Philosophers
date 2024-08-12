@@ -1,0 +1,5 @@
+-fsanitize=thread -g
+
+// ./philo 5 800 200 200 7 thread leak, data race
+
+// ./philo 4 310 200 100 data race
