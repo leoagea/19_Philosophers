@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 13:25:24 by lagea             #+#    #+#             */
-/*   Updated: 2024/08/12 17:37:10 by lagea            ###   ########.fr       */
+/*   Updated: 2024/08/13 13:50:19 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,20 @@
 static int	case_one(t_data *data)
 {
 	data->start_time = get_time();
-	if (pthread_create(&data->thread[0], NULL, &routine, &data->philos[0]))
+	if (pthread_create(&data->philos[0].t1, NULL, &routine, &data->philos[0]))
 		return (ft_error(ERR_THREAD, data));
-	pthread_detach(data->thread[0]);
+	pthread_detach(data->philos[0].t1);
 	while (1)
 	{
-		pthread_mutex_lock(&data->death_lock);
     	if (data->dead)
     	{
-    	    pthread_mutex_unlock(&data->death_lock);
     	    break;
     	}
-    	pthread_mutex_unlock(&data->death_lock);
 		ft_usleep(0);
 	}
 	ft_exit(data);
+	sem_unlink("fork");
+	sem_unlink("write");
 	return (0);
 }
 
@@ -49,5 +48,7 @@ int	main(int ac, char **av)
 	if (loop_thread(&data))
 		return (1);
 	ft_exit(&data);
+	sem_unlink("fork");
+	sem_unlink("write");
 	return (0);
 }
