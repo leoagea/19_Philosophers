@@ -3,26 +3,66 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lagea <lagea@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 13:01:36 by lagea             #+#    #+#             */
-/*   Updated: 2024/08/13 17:19:08 by lagea            ###   ########.fr       */
+/*   Updated: 2024/08/14 00:32:33 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
-void	*monitor(void *data_pointer)
+void process_kill(t_data *data)
 {
-	
+	int i;
+
+	i = 0;
+	while (i < data->philo_num)
+	{
+		kill(data->pid[i], SIGINT);
+		i++;	
+	}
+}
+
+void	monitor(void *philo_pointer)
+{
+	t_philo *philo;
+
+	philo = (t_philo *)philo_pointer;
+	while(!philo->status && philo->eat_cont != philo->data->meals_nb)
+	{
+		eat(philo);
+		print(SLEEPING, philo);
+		ft_usleep(philo->data->sleep_time);
+		print(THINKING, philo);
+	}
 }
 
 void	*supervisor(void *philo_pointer)
 {
+	u_int64_t time;
+	t_philo *philo;
 	
+	philo = (t_philo *)philo_pointer;
+	while (1)
+	{
+		time = get_time();
+		philo->status = 1;
+		if (philo->eat_cont == philo->data->meals_nb)
+			return (NULL);
+		if (time - philo->last_eat >= philo->data->death_time)
+		{
+			print(DEAD, philo);
+			process_kill(philo->data);
+			delete_sema(philo->data);
+			free(philo->data->pid);
+			exit(1);
+		}
+	}
+	return (NULL);
 }
 
-void	*routine(void *philo_pointer, int i)
+void	routine(void *philo_pointer, int i)
 {
 	t_philo *philo;
 
@@ -32,18 +72,14 @@ void	*routine(void *philo_pointer, int i)
 	philo->eating = 0;
 	philo->id = i + 1;
 	philo->status = 0;
-	if (philo->data->philo_num == 1)
-	{
-		print(FORK, philo);
-		ft_usleep(philo->time_to_die);
-	}
-	while (philo->data->dead != 0)
-	{
-		
-	}
+	philo->last_eat = get_time();
+	pthread_create(&philo->t1, NULL, &supervisor, &philo);
+	monitor(&philo);
+	pthread_detach(philo->t1);
 }
 
-int	loop_thread(t_data *data)
+
+int	loop_process(t_data *data)
 {
 	int i;
 
@@ -58,8 +94,10 @@ int	loop_thread(t_data *data)
 	i = 0;
 	while (i < data->philo_num)
 	{
-		kill(data->pid[i], SIGINT);
-		i++;	
+		waitpid(data->pid[i], 0, 0);
+		i++;
 	}
+	process_kill(data);
+	delete_sema(data);
 	return (0);
 }

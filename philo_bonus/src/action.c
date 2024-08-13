@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   action.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lagea <lagea@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 01:45:47 by lagea             #+#    #+#             */
-/*   Updated: 2024/08/13 14:39:17 by lagea            ###   ########.fr       */
+/*   Updated: 2024/08/14 00:32:45 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ void	take_forks(t_philo *philo)
 
 void	drop_forks(t_philo *philo)
 {
-	sem_post(&philo->data->fork);
-	sem_post(&philo->data->fork);
+	sem_post(philo->data->fork);
+	sem_post(philo->data->fork);
 	print(SLEEPING, philo);
 	ft_usleep(philo->data->sleep_time);
 }
