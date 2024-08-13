@@ -3,46 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lagea <lagea@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 15:10:26 by lagea             #+#    #+#             */
-/*   Updated: 2024/08/12 16:12:41 by lagea            ###   ########.fr       */
+/*   Updated: 2024/08/14 00:34:47 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
-void	clear_data(t_data *data)
-{
-	if (data->thread)
-		free(data->thread);
-	if (data->forks)
-		free(data->forks);
-	if (data->philos)
-		free(data->philos);
-}
-
-void	ft_exit(t_data *data)
-{
-	int	i;
-
-	i = -1;
-	while (++i < data->philo_num)
-	{
-		pthread_mutex_destroy(&data->forks[i]);
-		pthread_mutex_destroy(&data->philos[i].lock);
-	}
-	pthread_mutex_destroy(&data->write);
-	pthread_mutex_destroy(&data->lock);
-	pthread_mutex_destroy(&data->death_lock);
-	clear_data(data);
-}
 
 int	ft_error(char *str, t_data *data)
 {
 	printf("%s\n", str);
 	if (data)
-		ft_exit(data);
+	{
+		delete_sema(data);
+		process_kill(data);
+		free(data->pid);
+		exit(1);
+	}
 	return (1);
 }
 
