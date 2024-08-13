@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   action.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
+/*   By: lagea <lagea@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 01:45:47 by lagea             #+#    #+#             */
-/*   Updated: 2024/08/12 01:49:34 by lagea            ###   ########.fr       */
+/*   Updated: 2024/08/13 14:39:17 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 
 void	take_forks(t_philo *philo)
 {
-	pthread_mutex_lock(philo->r_fork);
+	sem_wait(philo->data->fork);
 	print(FORK, philo);
-	pthread_mutex_lock(philo->l_fork);
+	sem_wait(philo->data->fork);
 	print(FORK, philo);
 }
 
 void	drop_forks(t_philo *philo)
 {
-	pthread_mutex_unlock(philo->l_fork);
-	pthread_mutex_unlock(philo->r_fork);
+	sem_post(&philo->data->fork);
+	sem_post(&philo->data->fork);
 	print(SLEEPING, philo);
 	ft_usleep(philo->data->sleep_time);
 }
@@ -31,13 +31,13 @@ void	drop_forks(t_philo *philo)
 void	eat(t_philo *philo)
 {
 	take_forks(philo);
-	pthread_mutex_lock(&philo->lock);
+	// pthread_mutex_lock(&philo->lock);
 	philo->eating = 1;
 	philo->time_to_die = get_time() + philo->data->death_time;
 	print(EATING, philo);
 	philo->eat_cont++;
 	ft_usleep(philo->data->eat_time);
 	philo->eating = 0;
-	pthread_mutex_unlock(&philo->lock);
+	// pthread_mutex_unlock(&philo->lock);
 	drop_forks(philo);
 }
