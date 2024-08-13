@@ -3,34 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lagea <lagea@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 13:25:24 by lagea             #+#    #+#             */
-/*   Updated: 2024/08/13 13:50:19 by lagea            ###   ########.fr       */
+/*   Updated: 2024/08/14 00:32:59 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
-static int	case_one(t_data *data)
-{
-	data->start_time = get_time();
-	if (pthread_create(&data->philos[0].t1, NULL, &routine, &data->philos[0]))
-		return (ft_error(ERR_THREAD, data));
-	pthread_detach(data->philos[0].t1);
-	while (1)
-	{
-    	if (data->dead)
-    	{
-    	    break;
-    	}
-		ft_usleep(0);
-	}
-	ft_exit(data);
-	sem_unlink("fork");
-	sem_unlink("write");
-	return (0);
-}
+// static int	case_one(t_data *data)
+// {
+// 	data->start_time = get_time();
+// 	if (pthread_create(&data->philos[0].t1, NULL, &routine, &data->philos[0]))
+// 		return (ft_error(ERR_THREAD, data));
+// 	pthread_detach(data->philos[0].t1);
+// 	while (1)
+// 	{
+//     	if (data->dead)
+//     	{
+//     	    break;
+//     	}
+// 		ft_usleep(0);
+// 	}
+// 	ft_exit(data);
+// 	sem_unlink("fork");
+// 	sem_unlink("write");
+// 	return (0);
+// }
 
 int	main(int ac, char **av)
 {
@@ -43,11 +43,10 @@ int	main(int ac, char **av)
 		return (1);
 	if (init(&data, av, ac))
 		return (1);
-	if (data.philo_num == 1)
-		return (case_one(&data));
-	if (loop_thread(&data))
+	// if (data.philo_num == 1)
+		// return (case_one(&data));
+	if (loop_process(&data))
 		return (1);
-	ft_exit(&data);
 	sem_unlink("fork");
 	sem_unlink("write");
 	return (0);

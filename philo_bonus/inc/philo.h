@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lagea <lagea@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 13:25:35 by lagea             #+#    #+#             */
-/*   Updated: 2024/08/13 13:53:30 by lagea            ###   ########.fr       */
+/*   Updated: 2024/08/14 00:34:28 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ typedef struct s_philo
 	int				status;
 	int				eating;
 	uint64_t		time_to_die;
+	uint64_t		last_eat;
 	
 }					t_philo;
 
@@ -70,8 +71,8 @@ typedef struct s_data
 	u_int64_t		eat_time;
 	u_int64_t		sleep_time;
 	u_int64_t		start_time;
-	sem_t			fork;
-	sem_t			write;
+	sem_t			*fork;
+	sem_t			*write;
 }					t_data;
 
 /*---------------------------Action--------------------------*/
@@ -80,8 +81,9 @@ void				eat(t_philo *philo);
 
 /*--------------------------Routine--------------------------*/
 
-void				*routine(void *philo_pointer);
-int					loop_thread(t_data *data);
+void process_kill(t_data *data);
+void	routine(void *philo_pointer, int i);
+int					loop_process(t_data *data);
 
 /*----------------------------Init---------------------------*/
 
@@ -103,5 +105,6 @@ int					ft_strcmp(char *s1, char *s2);
 u_int64_t			get_time(void);
 int					ft_usleep(useconds_t time);
 void				print(char *str, t_philo *philo);
+void delete_sema(t_data *data);
 
 #endif
