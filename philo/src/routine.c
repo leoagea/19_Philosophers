@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 13:01:36 by lagea             #+#    #+#             */
-/*   Updated: 2024/08/12 17:31:58 by lagea            ###   ########.fr       */
+/*   Updated: 2024/08/14 17:45:35 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ void	*monitor(void *data_pointer)
 	t_philo	*philo;
 
 	philo = (t_philo *)data_pointer;
-	pthread_mutex_lock(&philo->data->write);
-	pthread_mutex_unlock(&philo->data->write);
 	while (1)
 	{
 		pthread_mutex_lock(&philo->data->death_lock);
