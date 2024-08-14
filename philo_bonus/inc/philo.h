@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
+/*   By: lagea <lagea@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 13:25:35 by lagea             #+#    #+#             */
-/*   Updated: 2024/08/14 00:34:28 by lagea            ###   ########.fr       */
+/*   Updated: 2024/08/14 17:05:46 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@
 # define ERR_2 "Error: Input invalid values"
 # define ERR_SEMA_1 "Error: Open semaphore"
 # define ERR_ALLOC_1 "Error: Allocation pthread"
-# define ERR_ALLOC_2 "Error: Allocation mutex"
+# define ERR_ALLOC_2 "Error: Allocation pid array"
 # define ERR_ALLOC_3 "Error: Allocation struct philo"
 # define ERR_THREAD "Error: Thread creation"
 # define ERR_DETACH "Error: Thread detach"
@@ -48,14 +48,14 @@ struct	s_data;
 
 typedef struct s_philo
 {
-	struct s_data	*data;
-	pthread_t		t1;
 	int				id;
 	int				eat_cont;
 	int				status;
-	int				eating;
-	uint64_t		time_to_die;
-	uint64_t		last_eat;
+	u_int64_t		last_eat;
+	pthread_t		t1;
+	pthread_mutex_t lock;
+	// pthread_mutex_t dead;
+	struct s_data	*data;
 	
 }					t_philo;
 
@@ -63,8 +63,6 @@ typedef struct s_data
 {
 	int				philo_num;
 	int				meals_nb;
-	int				dead;
-	int				finished;
 	int				*pid;
 	t_philo			*philos;
 	u_int64_t		death_time;
@@ -82,7 +80,7 @@ void				eat(t_philo *philo);
 /*--------------------------Routine--------------------------*/
 
 void process_kill(t_data *data);
-void	routine(void *philo_pointer, int i);
+void	routine(t_data *data, int i);
 int					loop_process(t_data *data);
 
 /*----------------------------Init---------------------------*/

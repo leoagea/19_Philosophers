@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
+/*   By: lagea <lagea@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 17:59:51 by lagea             #+#    #+#             */
-/*   Updated: 2024/08/14 00:30:24 by lagea            ###   ########.fr       */
+/*   Updated: 2024/08/14 16:17:53 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,7 @@ void	print(char *str, t_philo *philo)
 
 	sem_wait(philo->data->write);
 	time = get_time() - philo->data->start_time;
-	// pthread_mutex_lock(&philo->data->death_lock);
-	if (ft_strcmp(DEAD, str) == 0 && philo->data->dead == 0)
-	{
-		printf("[%llu] [%d] " RED "%s" RESET "\n", time, philo->id, str);
-		philo->data->dead = 1;
-	}
-	if (!philo->data->dead)
-		printf("[%llu] [%d] " BLUE "%s" RESET "\n", time, philo->id, str);
-	// pthread_mutex_unlock(&philo->data->death_lock);
+	printf("[%llu] [%d] " BLUE "%s" RESET "\n", time, philo->id, str);
 	sem_post(philo->data->write);
 }
 
