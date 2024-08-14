@@ -6,23 +6,23 @@
 /*   By: lagea <lagea@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 13:25:35 by lagea             #+#    #+#             */
-/*   Updated: 2024/08/14 17:05:46 by lagea            ###   ########.fr       */
+/*   Updated: 2024/08/14 18:03:27 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
 # define PHILO_H
 
+# include <fcntl.h>
 # include <limits.h>
 # include <pthread.h>
-#include <semaphore.h>
+# include <semaphore.h>
+# include <signal.h>
 # include <stdatomic.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <sys/time.h> //struct timeval
 # include <unistd.h>   //sleep
-#include <fcntl.h>
-#include <signal.h>
 
 # define RED "\033[1;31m"   // DIED
 # define BLUE "\033[34;01m" // FORK
@@ -53,10 +53,9 @@ typedef struct s_philo
 	int				status;
 	u_int64_t		last_eat;
 	pthread_t		t1;
-	pthread_mutex_t lock;
-	// pthread_mutex_t dead;
+	pthread_mutex_t	lock;
 	struct s_data	*data;
-	
+
 }					t_philo;
 
 typedef struct s_data
@@ -79,8 +78,8 @@ void				eat(t_philo *philo);
 
 /*--------------------------Routine--------------------------*/
 
-void process_kill(t_data *data);
-void	routine(t_data *data, int i);
+void				process_kill(t_data *data);
+void				routine(t_data *data, int i);
 int					loop_process(t_data *data);
 
 /*----------------------------Init---------------------------*/
@@ -103,6 +102,7 @@ int					ft_strcmp(char *s1, char *s2);
 u_int64_t			get_time(void);
 int					ft_usleep(useconds_t time);
 void				print(char *str, t_philo *philo);
-void delete_sema(t_data *data);
+void				delete_sema(t_data *data);
+void				death(t_philo *philo, u_int64_t time);
 
 #endif

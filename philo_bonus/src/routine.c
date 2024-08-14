@@ -6,30 +6,30 @@
 /*   By: lagea <lagea@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 13:01:36 by lagea             #+#    #+#             */
-/*   Updated: 2024/08/14 17:50:29 by lagea            ###   ########.fr       */
+/*   Updated: 2024/08/14 18:03:47 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
-void process_kill(t_data *data)
+void	process_kill(t_data *data)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < data->philo_num)
 	{
 		kill(data->pid[i], SIGINT);
-		i++;	
+		i++;
 	}
 }
 
 void	monitor(void *philo_pointer)
 {
-	t_philo *philo;
+	t_philo	*philo;
 
 	philo = (t_philo *)philo_pointer;
-	while(1)
+	while (1)
 	{
 		pthread_mutex_lock(&philo->lock);
 		if (philo->status || philo->eat_cont == philo->data->meals_nb)
@@ -45,9 +45,9 @@ void	monitor(void *philo_pointer)
 
 void	*supervisor(void *philo_pointer)
 {
-	u_int64_t time;
-	t_philo *philo;
-	
+	u_int64_t	time;
+	t_philo		*philo;
+
 	philo = (t_philo *)philo_pointer;
 	while (1)
 	{
@@ -64,12 +64,7 @@ void	*supervisor(void *philo_pointer)
 			philo->status = 1;
 			sem_wait(philo->data->write);
 			time = get_time() - philo->data->start_time;
-			printf("[%llu] [%d] " RED "%s" RESET "\n", time, philo->id, DEAD);
-			process_kill(philo->data);
-			sem_post(philo->data->write);
-			delete_sema(philo->data);
-			free(philo->data->pid);
-			exit(1);
+			death(philo, time);
 		}
 		pthread_mutex_unlock(&philo->lock);
 		ft_usleep(1);
@@ -79,7 +74,7 @@ void	*supervisor(void *philo_pointer)
 
 void	routine(t_data *data, int i)
 {
-	t_philo philo;
+	t_philo	philo;
 
 	philo.data = data;
 	philo.eat_cont = 0;
@@ -89,16 +84,14 @@ void	routine(t_data *data, int i)
 		ft_usleep(data->sleep_time / 2);
 	philo.last_eat = get_time();
 	pthread_mutex_init(&philo.lock, NULL);
-	// pthread_mutex_init(&philo.dead, NULL);
 	pthread_create(&philo.t1, NULL, &supervisor, &philo);
 	monitor(&philo);
 	pthread_detach(philo.t1);
 }
 
-
 int	loop_process(t_data *data)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	data->pid = malloc(sizeof(int) * data->philo_num);

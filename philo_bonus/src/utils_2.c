@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 17:59:51 by lagea             #+#    #+#             */
-/*   Updated: 2024/08/14 16:17:53 by lagea            ###   ########.fr       */
+/*   Updated: 2024/08/14 18:04:04 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,20 @@ void	print(char *str, t_philo *philo)
 	sem_post(philo->data->write);
 }
 
-void delete_sema(t_data *data)
+void	delete_sema(t_data *data)
 {
 	sem_close(data->fork);
 	sem_close(data->write);
 	sem_unlink("fork");
 	sem_unlink("write");
+}
+
+void	death(t_philo *philo, u_int64_t time)
+{
+	printf("[%llu] [%d] " RED "%s" RESET "\n", time, philo->id, DEAD);
+	process_kill(philo->data);
+	sem_post(philo->data->write);
+	delete_sema(philo->data);
+	free(philo->data->pid);
+	exit(1);
 }

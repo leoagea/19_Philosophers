@@ -6,13 +6,13 @@
 /*   By: lagea <lagea@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 13:24:51 by lagea             #+#    #+#             */
-/*   Updated: 2024/08/14 16:18:01 by lagea            ###   ########.fr       */
+/*   Updated: 2024/08/14 18:00:51 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
-static int init_philo(t_data *data)
+static int	init_philo(t_data *data)
 {
 	data->philos = malloc(sizeof(t_philo) * data->philo_num);
 	if (!data->philos)
@@ -20,7 +20,7 @@ static int init_philo(t_data *data)
 	return (0);
 }
 
-static int init_sema(t_data *data)
+static int	init_sema(t_data *data)
 {
 	sem_unlink("fork");
 	sem_unlink("write");
