@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
+/*   By: lagea <lagea@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 13:01:36 by lagea             #+#    #+#             */
-/*   Updated: 2024/08/14 00:32:33 by lagea            ###   ########.fr       */
+/*   Updated: 2024/08/14 17:50:29 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,16 @@ void	monitor(void *philo_pointer)
 	t_philo *philo;
 
 	philo = (t_philo *)philo_pointer;
-	while(!philo->status && philo->eat_cont != philo->data->meals_nb)
+	while(1)
 	{
+		pthread_mutex_lock(&philo->lock);
+		if (philo->status || philo->eat_cont == philo->data->meals_nb)
+		{
+			pthread_mutex_unlock(&philo->lock);
+			return ;
+		}
+		pthread_mutex_unlock(&philo->lock);
 		eat(philo);
-		print(SLEEPING, philo);
-		ft_usleep(philo->data->sleep_time);
 		print(THINKING, philo);
 	}
 }
@@ -47,35 +52,47 @@ void	*supervisor(void *philo_pointer)
 	while (1)
 	{
 		time = get_time();
-		philo->status = 1;
+		pthread_mutex_lock(&philo->lock);
 		if (philo->eat_cont == philo->data->meals_nb)
+		{
+			pthread_mutex_unlock(&philo->lock);
 			return (NULL);
+		}
 		if (time - philo->last_eat >= philo->data->death_time)
 		{
-			print(DEAD, philo);
+			pthread_mutex_unlock(&philo->lock);
+			philo->status = 1;
+			sem_wait(philo->data->write);
+			time = get_time() - philo->data->start_time;
+			printf("[%llu] [%d] " RED "%s" RESET "\n", time, philo->id, DEAD);
 			process_kill(philo->data);
+			sem_post(philo->data->write);
 			delete_sema(philo->data);
 			free(philo->data->pid);
 			exit(1);
 		}
+		pthread_mutex_unlock(&philo->lock);
+		ft_usleep(1);
 	}
 	return (NULL);
 }
 
-void	routine(void *philo_pointer, int i)
+void	routine(t_data *data, int i)
 {
-	t_philo *philo;
+	t_philo philo;
 
-	philo = (t_philo *)philo_pointer;
-	philo->time_to_die = philo->data->death_time;
-	philo->eat_cont = 0;
-	philo->eating = 0;
-	philo->id = i + 1;
-	philo->status = 0;
-	philo->last_eat = get_time();
-	pthread_create(&philo->t1, NULL, &supervisor, &philo);
+	philo.data = data;
+	philo.eat_cont = 0;
+	philo.id = i + 1;
+	philo.status = 0;
+	if (philo.id % 2 == 0)
+		ft_usleep(data->sleep_time / 2);
+	philo.last_eat = get_time();
+	pthread_mutex_init(&philo.lock, NULL);
+	// pthread_mutex_init(&philo.dead, NULL);
+	pthread_create(&philo.t1, NULL, &supervisor, &philo);
 	monitor(&philo);
-	pthread_detach(philo->t1);
+	pthread_detach(philo.t1);
 }
 
 
@@ -84,11 +101,17 @@ int	loop_process(t_data *data)
 	int i;
 
 	i = 0;
+	data->pid = malloc(sizeof(int) * data->philo_num);
+	if (!data->pid)
+		return (ft_error(ERR_ALLOC_2, data), 1);
 	while (i < data->philo_num)
 	{
 		data->pid[i] = fork();
 		if (data->pid[i] == 0)
-			routine(&data->philos[i], i);
+		{
+			data->philos[i].data = data;
+			routine(data, i);
+		}
 		i++;
 	}
 	i = 0;
