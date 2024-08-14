@@ -1,8 +1,8 @@
-NAME = philo_bonus
+NAME = philo
 
 CC = cc
 
-CFLAGS = -Werror -Wall -Wextra #-fsanitize=thread -g3
+CFLAGS = -Werror -Wall -Wextra #-fsanitize=thread -g
 
 RM = rm -rf
 
@@ -41,7 +41,7 @@ all : $(NAME)
 $(NAME) : $(OBJ)
 	@$(CC) $(OBJ) $(CFLAGS) -o $(NAME)
 	@printf "\nCompilation complete.\n"
-	@printf "$(GREEN)Executable philo_bonus created.$(RESET)\n"
+	@printf "$(GREEN)Executable philo created.$(RESET)\n"
 
 $(DEBUG) : $(OBJD)
 	@$(CC) $(OBJD) $(CFLAGS) -fsanitize=address -g -o $(DEBUG)
