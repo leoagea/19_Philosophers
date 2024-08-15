@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 13:25:35 by lagea             #+#    #+#             */
-/*   Updated: 2024/08/14 18:03:27 by lagea            ###   ########.fr       */
+/*   Updated: 2024/08/15 16:33:25 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ typedef struct s_data
 	sem_t			*fork;
 	sem_t			*write;
 }					t_data;
+
+void				check_death(t_philo *philo, u_int64_t time);
 
 /*---------------------------Action--------------------------*/
 

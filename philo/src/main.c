@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 13:25:24 by lagea             #+#    #+#             */
-/*   Updated: 2024/08/12 17:37:10 by lagea            ###   ########.fr       */
+/*   Updated: 2024/08/15 16:37:05 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@ static int	case_one(t_data *data)
 	while (1)
 	{
 		pthread_mutex_lock(&data->death_lock);
-    	if (data->dead)
-    	{
-    	    pthread_mutex_unlock(&data->death_lock);
-    	    break;
-    	}
-    	pthread_mutex_unlock(&data->death_lock);
+		if (data->dead)
+		{
+			pthread_mutex_unlock(&data->death_lock);
+			break ;
+		}
+		pthread_mutex_unlock(&data->death_lock);
 		ft_usleep(0);
 	}
 	ft_exit(data);

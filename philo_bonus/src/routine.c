@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lagea < lagea@student.s19.be >             +#+  +:+       +#+        */
+/*   By: lagea <lagea@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 13:01:36 by lagea             #+#    #+#             */
-/*   Updated: 2024/08/14 22:39:00 by lagea            ###   ########.fr       */
+/*   Updated: 2024/08/15 16:35:57 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,16 +60,7 @@ void	*supervisor(void *philo_pointer)
 		}
 		if (time - philo->last_eat >= philo->data->death_time)
 		{
-			pthread_mutex_unlock(&philo->lock);
-			ft_usleep(1);
-			pthread_mutex_lock(&philo->lock);
-			if (time - philo->last_eat >= philo->data->death_time)
-			{
-				philo->status = 1;
-				sem_wait(philo->data->write);
-				time = get_time() - philo->data->start_time;
-				death(philo, time);
-			}
+			check_death(philo, time);
 		}
 		pthread_mutex_unlock(&philo->lock);
 		ft_usleep(10);

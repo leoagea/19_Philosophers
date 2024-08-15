@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 13:01:36 by lagea             #+#    #+#             */
-/*   Updated: 2024/08/14 17:45:35 by lagea            ###   ########.fr       */
+/*   Updated: 2024/08/15 16:36:57 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ void	*monitor(void *data_pointer)
 	while (1)
 	{
 		pthread_mutex_lock(&philo->data->death_lock);
-    	if (philo->data->dead)
-    	{
-        	pthread_mutex_unlock(&philo->data->death_lock);
-        	break;
-    	}
+		if (philo->data->dead)
+		{
+			pthread_mutex_unlock(&philo->data->death_lock);
+			break ;
+		}
 		pthread_mutex_lock(&philo->data->lock);
 		if (philo->data->finished >= philo->data->philo_num)
 			philo->data->dead = 1;
@@ -42,12 +42,12 @@ void	*supervisor(void *philo_pointer)
 	while (1)
 	{
 		pthread_mutex_lock(&philo->data->death_lock);
-    	if (philo->data->dead)
-    	{
-    	    pthread_mutex_unlock(&philo->data->death_lock);
-    	    break;
-    	}
-    	pthread_mutex_unlock(&philo->data->death_lock);
+		if (philo->data->dead)
+		{
+			pthread_mutex_unlock(&philo->data->death_lock);
+			break ;
+		}
+		pthread_mutex_unlock(&philo->data->death_lock);
 		pthread_mutex_lock(&philo->lock);
 		if (get_time() >= philo->time_to_die && philo->eating == 0)
 			print(DEAD, philo);
@@ -76,12 +76,12 @@ void	*routine(void *philo_pointer)
 	while (1)
 	{
 		pthread_mutex_lock(&philo->data->death_lock);
-    	if (philo->data->dead)
-    	{
-    	    pthread_mutex_unlock(&philo->data->death_lock);
-    	    break;
-    	}
-    	pthread_mutex_unlock(&philo->data->death_lock);
+		if (philo->data->dead)
+		{
+			pthread_mutex_unlock(&philo->data->death_lock);
+			break ;
+		}
+		pthread_mutex_unlock(&philo->data->death_lock);
 		eat(philo);
 		print(THINKING, philo);
 	}
