@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lagea <lagea@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 13:24:51 by lagea             #+#    #+#             */
-/*   Updated: 2024/08/12 16:12:31 by lagea            ###   ########.fr       */
+/*   Updated: 2025/01/10 17:36:33 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,7 @@ static int	init_data(t_data *data, char **av, int ac)
 		data->meals_nb = ft_atoi(av[5]);
 	else
 		data->meals_nb = -1;
-	if (data->philo_num <= 0 || data->philo_num > 200 || data->death_time < 0
-		|| data->eat_time < 0 || data->sleep_time < 0)
+	if (data->philo_num <= 0 || data->philo_num > 200)
 		return (ft_error(ERR_2, NULL));
 	data->dead = 0;
 	data->finished = 0;

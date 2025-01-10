@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lagea <lagea@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 13:25:35 by lagea             #+#    #+#             */
-/*   Updated: 2024/08/12 17:00:51 by lagea            ###   ########.fr       */
+/*   Updated: 2025/01/10 18:02:30 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <stdlib.h>
 # include <sys/time.h> //struct timeval
 # include <unistd.h>   //sleep
+# include <sys/types.h>
 
 # define RED "\033[1;31m"   // DIED
 # define BLUE "\033[34;01m" // FORK
@@ -50,7 +51,7 @@ typedef struct s_philo
 	int				eat_cont;
 	int				status;
 	int				eating;
-	uint64_t		time_to_die;
+	u_int64_t		time_to_die;
 	pthread_mutex_t	lock;
 	pthread_mutex_t	*r_fork;
 	pthread_mutex_t	*l_fork;

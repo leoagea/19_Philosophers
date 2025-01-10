@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lagea <lagea@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 17:59:51 by lagea             #+#    #+#             */
-/*   Updated: 2024/08/12 16:32:22 by lagea            ###   ########.fr       */
+/*   Updated: 2025/01/10 17:38:35 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,11 @@ void	print(char *str, t_philo *philo)
 	pthread_mutex_lock(&philo->data->death_lock);
 	if (ft_strcmp(DEAD, str) == 0 && philo->data->dead == 0)
 	{
-		printf("[%llu] [%d] " RED "%s" RESET "\n", time, philo->id, str);
+		printf("[%lu] [%d] " RED "%s" RESET "\n", time, philo->id, str);
 		philo->data->dead = 1;
 	}
 	if (!philo->data->dead)
-		printf("[%llu] [%d] " BLUE "%s" RESET "\n", time, philo->id, str);
+		printf("[%lu] [%d] " BLUE "%s" RESET "\n", time, philo->id, str);
 	pthread_mutex_unlock(&philo->data->death_lock);
 	pthread_mutex_unlock(&philo->data->write);
 }
