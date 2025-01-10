@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lagea <lagea@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 17:59:51 by lagea             #+#    #+#             */
-/*   Updated: 2024/08/14 18:04:04 by lagea            ###   ########.fr       */
+/*   Updated: 2025/01/10 18:13:39 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	print(char *str, t_philo *philo)
 
 	sem_wait(philo->data->write);
 	time = get_time() - philo->data->start_time;
-	printf("[%llu] [%d] " BLUE "%s" RESET "\n", time, philo->id, str);
+	printf("[%lu] [%d] " BLUE "%s" RESET "\n", time, philo->id, str);
 	sem_post(philo->data->write);
 }
 
@@ -51,7 +51,7 @@ void	delete_sema(t_data *data)
 
 void	death(t_philo *philo, u_int64_t time)
 {
-	printf("[%llu] [%d] " RED "%s" RESET "\n", time, philo->id, DEAD);
+	printf("[%lu] [%d] " RED "%s" RESET "\n", time, philo->id, DEAD);
 	process_kill(philo->data);
 	sem_post(philo->data->write);
 	delete_sema(philo->data);
